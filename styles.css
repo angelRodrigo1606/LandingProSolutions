@@ -167,6 +167,32 @@ header nav {
     padding: 0 22px;
 }
 
+/* Theme Icon Logic */
+.icon-sun,
+.icon-moon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2px;
+}
+
+/* Default Light Mode: Show Moon (to switch to dark), Hide Sun */
+.icon-sun {
+    display: none;
+}
+
+.icon-moon {
+    display: block;
+}
+
+/* Dark Mode: Show Sun (to switch to light), Hide Moon */
+[data-theme="dark"] .icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] .icon-moon {
+    display: none;
+}
+
 .logo-link h2 {
     font-size: 19px;
     font-weight: 600;
@@ -1015,6 +1041,156 @@ footer {
     margin-top: 0;
 }
 
+/* --- ANIMACIONES AVANZADAS --- */
+
+/* Base Logic for Scroll Animations */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered Delays for Grids */
+.reveal-on-scroll.delay-100 {
+    transition-delay: 0.1s;
+}
+
+.reveal-on-scroll.delay-200 {
+    transition-delay: 0.2s;
+}
+
+.reveal-on-scroll.delay-300 {
+    transition-delay: 0.3s;
+}
+
+/* Specific Animation Types */
+
+/* Fade In Up (Default) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Zoom In */
+.zoom-in {
+    transform: scale(0.9);
+}
+
+.zoom-in.is-visible {
+    transform: scale(1);
+}
+
+/* Slide In Left */
+.slide-in-left {
+    transform: translateX(-50px);
+}
+
+.slide-in-left.is-visible {
+    transform: translateX(0);
+}
+
+/* Slide In Right */
+.slide-in-right {
+    transform: translateX(50px);
+}
+
+.slide-in-right.is-visible {
+    transform: translateX(0);
+}
+
+/* Hover Animations for Cards */
+.benefit-card,
+.feature-card,
+.testimonial-card,
+.pricing-card {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.benefit-card:hover,
+.feature-card:hover,
+.testimonial-card:hover,
+.pricing-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    /* More dramatic shadow */
+    z-index: 2;
+}
+
+/* Pulse Element (e.g., CTA buttons) */
+@keyframes pulse-soft {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 113, 227, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
+    }
+}
+
+.cta-primary:hover {
+    animation: pulse-soft 2s infinite;
+}
+
+/* Hero Specific Initial Animation */
+.hero-title {
+    /* Animation removed here, handled by JS letters */
+    opacity: 1;
+}
+
+.hero-title span.char {
+    opacity: 0;
+    display: inline-block;
+    filter: blur(8px);
+    transform: translateY(20px) scale(0.8);
+    animation: letterAnim 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: pre;
+    /* Ensure spaces have width */
+}
+
+@keyframes letterAnim {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hero-subtitle {
+    animation: fadeInUp 1s cubic-bezier(0.5, 0, 0, 1) forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+}
+
+.hero-cta-group {
+    animation: fadeInUp 1s cubic-bezier(0.5, 0, 0, 1) forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
+}
+
+/* Stats Counter Animation styles (if used) */
+@property --num {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: false;
+}
+
 .modal-content h3 {
     margin-bottom: 24px;
     padding-right: 30px;
@@ -1039,4 +1215,3 @@ footer {
     background-color: var(--primary-color);
     color: white !important;
 }
-
