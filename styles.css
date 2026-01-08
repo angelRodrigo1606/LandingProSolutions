@@ -1,0 +1,1042 @@
+/**
+ * LandingPro Solutions - Apple-style Minimalist Theme
+ * 
+ * Design Principles:
+ * - Clean typography (SF Pro / System fonts)
+ * - High usage of whitespace
+ * - Subtle shadows and blur effects (Glassmorphism)
+ * - Refined color palette (Off-whites, deep grays, localized accents)
+ */
+
+:root {
+    /* Color Palette - Light Mode (Default) */
+    --primary-color: #0071e3;
+    /* Apple Blue */
+    --primary-hover: #0077ed;
+    --text-primary: #1d1d1f;
+    --text-secondary: #62626a;
+    --bg-body: #fbfbfd;
+    /* Subtle off-white */
+    --bg-card: #ffffff;
+    --bg-nav: rgba(251, 251, 253, 0.8);
+    --border-light: #d2d2d7;
+    --border-subtle: #e5e5e5;
+
+    /* Shadows */
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-button: 0 0 0 transparent;
+    /* Flat buttons are preferred */
+
+    /* Layout & Spacing */
+    --max-width: 980px;
+    /* Classic focused width */
+    --max-width-wide: 1200px;
+    --header-height: 48px;
+    --radius-button: 980px;
+    /* Pill shape */
+    --radius-card: 18px;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 40px;
+    --spacing-xl: 60px;
+    --spacing-2xl: 60px;
+
+    /* Transitions */
+    --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+    /* Ease-out primarily */
+    --duration-fast: 0.3s;
+}
+
+/* Dark Mode Override */
+[data-theme="dark"] {
+    --text-primary: #f5f5f7;
+    --text-secondary: #a1a1a6;
+    --bg-body: #1c1c1e;
+    --bg-card: #1c1c1e;
+    --bg-nav: rgba(0, 0, 0, 0.72);
+    --border-light: #424245;
+    --border-subtle: #38383a;
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-nav);
+    color: var(--text-primary);
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    overflow-x: hidden;
+    transition: background-color var(--duration-fast) var(--ease-apple), color var(--duration-fast) var(--ease-apple);
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.003em;
+    margin-bottom: var(--spacing-xs);
+}
+
+h1.hero-title {
+    font-size: clamp(40px, 8vw, 64px);
+    /* Fixed: Removed space between function name and parenthesis */
+    line-height: 1.07143;
+    font-weight: 650;
+    letter-spacing: -0.005em;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+    text-shadow: none;
+    /* Removed heavy shadow */
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 19px;
+    /* Apple uses 19px or 21px for body copy often */
+    line-height: 1.4211;
+    font-weight: 400;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Layout Utilities */
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 87.5%;
+    max-width: var(--max-width-wide);
+}
+
+/* Header & Navigation */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    height: var(--header-height);
+    /* Compact header */
+    background-color: var(--bg-nav);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    /* Very subtle separator */
+    transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header nav {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+}
+
+.logo-link h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+header nav ul {
+    list-style: none;
+    display: none;
+    /* Mobile first logic kept */
+    gap: 24px;
+    margin-left: auto;
+    /* Push links to the right */
+    margin-right: 24px;
+    /* Space between links and toggle */
+}
+
+header nav ul li a {
+    font-size: 16px;
+    /* Apple uses very small text in nav often, or 14px */
+    color: var(--text-secondary);
+    /* Not full black */
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    transition: color 0.1s ease;
+}
+
+header nav ul li a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Buttons (Apple Style Pills) */
+.cta-primary,
+.cta-secondary,
+.form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 26px;
+    font-size: 17px;
+    font-weight: 600;
+    /* Medium weight */
+    border-radius: var(--radius-button);
+    cursor: pointer;
+    text-align: center;
+    min-width: 140px;
+    transition: all 0.3s var(--ease-apple);
+    text-decoration: none !important;
+    line-height: 1.17648;
+    letter-spacing: -0.022em;
+    box-shadow: none !important;
+}
+
+.cta-primary,
+.form-submit {
+    background-color: var(--primary-color);
+    color: #ffffff !important;
+    border: 1px solid transparent;
+}
+
+.cta-primary:hover,
+.form-submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.cta-secondary {
+    background-color: transparent;
+    color: var(--primary-color) !important;
+    border: 1px solid transparent;
+    /* No visible border for link-style secondary */
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.cta-secondary:hover {
+    text-decoration: underline !important;
+    transform: none;
+}
+
+.section-cta {
+    margin-top: 30px;
+}
+
+/* Refined secondary button (more like a button) */
+.cta-secondary.button-style {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    padding: 12px 26px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    /* Ensure hero takes full viewport minus header approximately, or just full min-height */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    /* Keep some padding */
+    background-color: #0B1120;
+    /* Fallback dark bg */
+    overflow: hidden;
+    margin-top: -48px;
+    /* Pull up behind transparent header if desired, or keep as is. */
+    /* Let's keep it safe: Navbar is sticky. We want hero to look good. */
+}
+
+/* Make canvas absolute bg */
+#hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Behind content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    /* Above canvas */
+    max-width: 1100px;
+    margin: 0 auto;
+    /* Removed background image and heavy styling from previous step */
+    background: transparent;
+    padding: 0 10px;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+}
+
+/* Improve text readability on dark bg */
+.hero-content .hero-title {
+    color: #ffffff;
+    font-size: clamp(40px, 8vw, 72px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    /* Stronger shadow */
+}
+
+.hero-content .hero-subtitle {
+    color: #e2e8f0;
+    /* Light gray */
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation Control Button */
+.animation-control {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(4px);
+}
+
+.animation-control:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Adjust light mode theme toggle/elements inside dark hero */
+.hero-content .cta-secondary {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+
+.hero-subtitle {
+    font-size: 21px;
+    line-height: 1.381;
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+/* Hero Buttons Override */
+.hero-content .cta-primary {
+    background-color: #ffffff;
+    color: var(--primary-color) !important;
+}
+
+.hero-content .cta-primary:hover {
+    background-color: #f5f5f7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.hero-content .cta-secondary {
+    color: #ffffff !important;
+}
+
+.hero-content .cta-secondary:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.hero-cta-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+
+
+/* Sections General */
+section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.08349;
+    font-weight: 700;
+    letter-spacing: -0.003em;
+    margin-bottom: 36px;
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+    font-size: 21px;
+    color: var(--text-secondary);
+}
+
+/* Benefits Grid (Minimal Cards) */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.benefit-card {
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: var(--radius-card);
+    transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
+    box-shadow: var(--shadow-card);
+    /* Remove borders, rely on shadow or subtle background diff */
+    border: 1px solid transparent;
+}
+
+.benefit-card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    background: transparent;
+    /* Remove gradient box */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.benefit-icon svg {
+    width: 40px;
+    height: 40px;
+    stroke-width: 1.5;
+    /* Thinner strokes */
+}
+
+.benefit-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.benefit-card p {
+    font-size: 17px;
+    line-height: 1.47059;
+}
+
+/* Features (Alternating or Grid) */
+.features {
+    background-color: var(--bg-body);
+    /* Keep same bg for continuous flow or switch to white */
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    padding: 30px;
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+}
+
+.feature-card h3 {
+    font-size: 21px;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 16px;
+}
+
+/* Social Proof */
+
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    border: none;
+}
+
+.testimonial-rating {
+    margin-bottom: 20px;
+    color: #ff9500;
+    /* Apple often uses orange for starts/rating */
+    display: flex;
+    gap: 2px;
+    /* Side by side with small gap */
+}
+
+.testimonial-rating svg {
+    width: 16px;
+    /* Small size */
+    height: 16px;
+    fill: currentColor;
+}
+
+.testimonial-card blockquote p {
+    font-size: 19px;
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+.author-name {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.author-role {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* Pricing */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    background: var(--bg-card);
+    padding: 40px 30px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-card-featured {
+    border: 2px solid var(--primary-color);
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.pricing-card h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.desde {
+    color: var(--text-primary);
+    align-items: end;
+}
+
+.pricing-price {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 10px 0;
+    letter-spacing: -0.02em;
+}
+
+.pricing-features {
+    list-style: none;
+    text-align: left;
+    margin: 30px 0;
+    flex: 1;
+}
+
+.pricing-features li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+
+
+
+/* Footer */
+footer {
+    background-color: var(--bg-body);
+    color: var(--text-secondary);
+    padding: 60px 0;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 14px;
+    /* Increased slightly for readability */
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    /* Override previous flex */
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-col ul li {
+    list-style: none;
+}
+
+.footer-nav a,
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: block;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-nav a:hover,
+.footer-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Mobile Footer: Stack columns */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+}
+
+/* Utilities */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1em;
+    background: white;
+    color: black;
+    opacity: 0;
+}
+
+.skip-link:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    :root {
+        --spacing-2xl: 60px;
+        --spacing-xl: 40px;
+    }
+
+    h1.hero-title {
+        font-size: 40px;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .benefits-grid,
+    .pricing-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-indicators {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card-featured {
+        transform: none;
+        border-width: 1px;
+    }
+
+    header nav ul {
+        display: none;
+        /* Hide nav links on mobile for simplicity or add hamburger later */
+    }
+}
+
+@media (min-width: 769px) {
+    header nav ul {
+        display: flex;
+    }
+}
+
+/* Mobile Navigation & Theme Toggle */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.whatsapp-button {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-card);
+}
+
+.whatsapp-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    /* Left side as requested */
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    transition: transform 0.3s var(--ease-apple);
+}
+
+.whatsapp-button:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-button svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+}
+
+/* Form Validation Styles */
+.contact-form input.error,
+.contact-form textarea.error {
+    border-color: #ff3b30;
+    /* Apple Red */
+    background-color: rgba(255, 59, 48, 0.05);
+}
+
+.contact-form input.valid,
+.contact-form textarea.valid {
+    border-color: #34c759;
+    /* Apple Green */
+}
+
+.error-message {
+    display: block;
+    font-size: 13px;
+    color: #ff3b30;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+    max-height: 30px;
+    margin-top: -15px;
+    /* Keep tight to input */
+}
+
+/* Form Status Message */
+.form-status {
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.form-status.show {
+    opacity: 1;
+    max-height: 100px;
+}
+
+.form-status.success {
+    background-color: rgba(52, 199, 89, 0.1);
+    color: #34c759;
+    border: 1px solid rgba(52, 199, 89, 0.2);
+}
+
+.form-status.error {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.footer-col p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* 📱 Celulares (máx. 767px) */
+@media (max-width: 767px) {
+    nav .theme-toggle {
+        margin-left: auto;
+        /* lo empuja a la derecha */
+        padding: 10px;
+        display: flex;
+        /* asegura que se comporte como bloque dentro del nav */
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* 📲 Tablets (768px a 1024px) */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    nav .theme-toggle {
+        margin-left: auto;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pricing-grid {
+        margin: 80px;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Estilo del contenedor (el enlace) */
+.logo-link {
+    text-decoration: none;
+    /* Quita el subrayado del link */
+    color: #000000;
+    /* Color negro puro */
+    display: inline-flex;
+    flex-direction: column;
+    /* Apila el h2 y el p verticalmente */
+    align-items: center;
+    /* Centra los textos entre sí */
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+    /* Reduce la altura de línea general */
+}
+
+/* Estilo para "LandingPro" */
+.logo-link h2 {
+    font-size: 1.5rem;
+    /* Tamaño grande */
+    font-weight: 700;
+    /* Negrita fuerte */
+    margin: 0;
+    /* Elimina márgenes por defecto */
+    letter-spacing: 0.5px;
+    /* Un poco más pegado para verse compacto */
+}
+
+/* Estilo para "Solutions" */
+.logo-link p {
+    font-size: 0.78rem;
+    /* Mucho más pequeño que el título */
+    font-weight: 500;
+    /* Peso medio/regular */
+    text-transform: uppercase;
+    /* Convierte el texto a MAYÚSCULAS automáticamente */
+    letter-spacing: 0.66em;
+    /* LA CLAVE: Espaciado amplio entre letras */
+    margin: 0;
+    /* Elimina márgenes */
+    margin-top: 2px;
+    /* Pequeña separación del título */
+    margin-left: 5px;
+    /* Ajuste visual para centrar con el espaciado */
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.94);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--border-subtle);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+.modal-body .details-heading {
+    margin: 24px 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.modal-body .details-heading:first-of-type {
+    margin-top: 0;
+}
+
+.modal-content h3 {
+    margin-bottom: 24px;
+    padding-right: 30px;
+    /* Space for close button */
+    font-size: 24px;
+}
+
+.btn-lo-quiero {
+    width: 100%;
+    margin-top: 32px;
+}
+
+.btn-view-details {
+    width: 100%;
+    margin-top: auto;
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color) !important;
+}
+
+.btn-view-details:hover {
+    background-color: var(--primary-color);
+    color: white !important;
+}
+
